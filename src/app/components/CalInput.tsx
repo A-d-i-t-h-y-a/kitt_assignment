@@ -13,9 +13,7 @@ import {
     PopoverTrigger,
 } from "@/app/components/ui/popover"
 
-export function CalInput(props: { inpName: string }) {
-    const [date, setDate] = React.useState<Date>()
-
+export function CalInput(props: { inpName: string; date: Date | undefined; setDate: (date: Date | undefined) => void }) {
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -23,18 +21,18 @@ export function CalInput(props: { inpName: string }) {
                     variant={"outline"}
                     className={cn(
                         "w-full ms-4 py-7 justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        !props.date && "text-muted-foreground"
                     )}
                 >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>{props.inpName}</span>}
+                    {props.date ? format(props.date, "PPP") : <span>{props.inpName}</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="single"
-                    selected={date}
-                    onSelect={setDate}
+                    selected={props.date}
+                    onSelect={props.setDate}
                     initialFocus
                 />
             </PopoverContent>
