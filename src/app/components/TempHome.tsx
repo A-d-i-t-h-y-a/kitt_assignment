@@ -3,9 +3,7 @@
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/app/components/ui/select"
@@ -19,8 +17,8 @@ const Home = async () => {
     const { airports, srcAirport, setSrcAirport, destAirport, setDestAirport, departureDate, setDepartureDate, returnDate, setReturnDate } = useAirports();
 
     const toggle = () => {
-        let prevSrc = srcAirport;
-        let prevDest = destAirport;
+        const prevSrc = srcAirport;
+        const prevDest = destAirport;
 
         setSrcAirport(prevDest || 'null');
         setDestAirport(prevSrc || 'null');
