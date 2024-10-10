@@ -36,8 +36,8 @@ export default async function Flights() {
     const [scode, sname] = srcAirport?.split(', ') || [];
     const [dcode, dname] = destAirport?.split(', ') || [];
     const toggle = () => {
-        let prevSrc = srcAirport;
-        let prevDest = destAirport;
+        const prevSrc = srcAirport;
+        const prevDest = destAirport;
 
         setSrcAirport(prevDest || 'null');
         setDestAirport(prevSrc || 'null');
