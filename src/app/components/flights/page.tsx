@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import FlightCard from '../FlightCard';
 import Link from 'next/link';
 import { useAirports } from '../../context/AirportContext';
@@ -120,15 +120,17 @@ export default async function Flights() {
                     </svg>
                 </div></Link>
             </div>
-            {loading ? (
-                <Loading />
-            ) : (
-                <div className="mx-56">
-                    {airports.map((ele) => (
-                        <FlightCard key={ele.code} airport={ele} />
-                    ))}
-                </div>
-            )}
+            <Suspense fallback={<Loading />}>
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <div className="mx-56">
+                        {airports.map((ele) => (
+                            <FlightCard key={ele.code} airport={ele} />
+                        ))}
+                    </div>
+                )}
+            </Suspense>
 
         </>
     )
