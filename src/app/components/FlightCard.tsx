@@ -6,8 +6,8 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet"
-import { Separator } from '@/components/ui/separator';
+} from "@/app/components/ui/sheet"
+import { Separator } from '@/app/components/ui/separator';
 import Timeline from './TimeLine';
 
 

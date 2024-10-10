@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FlightCard from '../FlightCard';
 import Link from 'next/link';
 import { useAirports } from '../../context/AirportContext';
@@ -9,21 +9,29 @@ import {
     SheetClose,
     SheetContent,
     SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/app/components/ui/sheet"
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/app/components/ui/select"
 
 import { CalInput } from "@/app/components/CalInput"
 import { Button } from "@/app/components/ui/button";
+import Loading from '@/app/loading';
 
 export default async function Flights() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
     const { airports, srcAirport, setSrcAirport, destAirport, setDestAirport, departureDate, setDepartureDate, returnDate, setReturnDate } = useAirports();
     const [scode, sname] = srcAirport?.split(', ') || [];
     const [dcode, dname] = destAirport?.split(', ') || [];
@@ -112,11 +120,15 @@ export default async function Flights() {
                     </svg>
                 </div></Link>
             </div>
-            <div className="mx-56">
-                {airports.map((ele) => (
-                    <FlightCard key={ele.code} airport={ele} />
-                ))}
-            </div>
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className="mx-56">
+                    {airports.map((ele) => (
+                        <FlightCard key={ele.code} airport={ele} />
+                    ))}
+                </div>
+            )}
 
         </>
     )

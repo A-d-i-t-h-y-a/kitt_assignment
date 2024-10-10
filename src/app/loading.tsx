@@ -5,6 +5,12 @@ const Loading = () => {
     return (
         <>
             <TopLoader />
+            <div>
+                <img
+                    src="D:\Kitt Assignment\kitt_assignment\src\app\components\flights\loadImage.gif"
+                    alt="Loading..."
+                />
+            </div>
         </>
     );
 }
