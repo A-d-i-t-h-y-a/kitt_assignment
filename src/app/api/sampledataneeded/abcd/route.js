@@ -31,6 +31,10 @@ export async function GET(req) {
   // 793261
   const keyData = {
     "3": "0GSuys8Jj82Nf",
+    "9": "vGAnIi",
+    "1": "YiSKb4e",
+    "7": "gsk_",
+    "6": "yb3FYBLZ0",
     "2": "2WGd",
   };
 
