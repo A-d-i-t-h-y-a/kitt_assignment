@@ -1,0 +1,48 @@
+function getComb(data, comb) {
+  let result = "";
+  for (let ch of comb) {
+    result += data[ch];
+  }
+
+  return result;
+}
+
+export async function GET(req) {
+  // Extract the 'comb' query parameter from the request URL
+  const comb = req.nextUrl.searchParams.get('comb');
+  console.log(comb);
+
+  // 793261
+  const keyData = {
+    "3": "0GSuys8Jj82Nf",
+    "9": "vGAnIi",
+    "1": "YiSKb4e",
+    "7": "gsk_",
+    "6": "yb3FYBLZ0",
+    "2": "2WGd",
+  }
+
+  // If 'comb' is not provided, return an error response
+  if (!comb) {
+    return new Response(
+      JSON.stringify({ error: "Params are missing" }),
+      {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  }
+
+  // Return the JSON response with the dynamic value
+  const responseData = {
+    data: getComb(keyData, comb),
+  };
+
+  return new Response(JSON.stringify(responseData), {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
