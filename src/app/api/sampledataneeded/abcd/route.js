@@ -8,6 +8,22 @@ function getComb(data, comb) {
 }
 
 export async function GET(req) {
+  // Set CORS headers for all responses
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers
+    });
+  }
+
   // Extract the 'comb' query parameter from the request URL
   const comb = req.nextUrl.searchParams.get('comb');
   console.log(comb);
@@ -15,12 +31,8 @@ export async function GET(req) {
   // 793261
   const keyData = {
     "3": "0GSuys8Jj82Nf",
-    "9": "vGAnIi",
-    "1": "YiSKb4e",
-    "7": "gsk_",
-    "6": "yb3FYBLZ0",
     "2": "2WGd",
-  }
+  };
 
   // If 'comb' is not provided, return an error response
   if (!comb) {
@@ -28,9 +40,7 @@ export async function GET(req) {
       JSON.stringify({ error: "Params are missing" }),
       {
         status: 400,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers
       }
     );
   }
@@ -41,8 +51,18 @@ export async function GET(req) {
   };
 
   return new Response(JSON.stringify(responseData), {
+    headers
+  });
+}
+
+// Handle OPTIONS request explicitly
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
   });
 }
